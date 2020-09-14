@@ -111,7 +111,7 @@ head(ABEV3.SA.Close,3)
 ## 2020-01-23 18.65
 ```
 
-Rember, although we had filter only one column, the index comes together. Another way to do that is use the function *cl* from the package *quantmod*, which can extract and transform colums of time-series objects.
+Remember, although we had filter only one column, the index comes together. Another way to do that is use the function *cl* from the package *quantmod*, which can extract and transform colums of time-series objects.
 
 Now, before we go any further, let's plot a candlestick of the original data *ABEV3*. We will use the function *candleChart* from *quantmod*.
  ``` r
