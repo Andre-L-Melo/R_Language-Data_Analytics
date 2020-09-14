@@ -77,7 +77,7 @@ class(ABEV3.SA)
 ```
 *getSymbols* has returned an object of type *xts zoo*. *zoo* is a time-series data type considered in R. What really categorize a time-series is a data sequence over time, which makes possible to do sales predictions, for example. Note that, we could use any company share for this example, but we preferred to use a company from Brazil Stock Market, in this case, the company AMBEV.
 
-<img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Financial_Data_Analysis_With_R/Images/logo-b3.png" alt = "B3" style="width:50px;height:50px;"/>
+<img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Financial_Data_Analysis_With_R/Images/logo-b3.png" alt = "B3" style="width:200px;height:200px;"/>
 
 If you want to know more about Brazil Stock Market, B3, check the link below:
 
@@ -117,7 +117,7 @@ Now, before we go any further, let's plot a candlestick of the original data *AB
  ``` r
 candleChart(ABEV3.SA)
  ```
- <img src="plot_zoom_png"
+ <img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Financial_Data_Analysis_With_R/Images/plot_zoom_png"
       alt = "Candle Chart ABEV3"
       style="width:600px;height:300px;"/>
 
@@ -133,7 +133,7 @@ ylab = "Price",
 major.ticks = "months",
 minor.ticks = FALSE)
 ```
- <img src="plot_zoom_png2"
+ <img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Financial_Data_Analysis_With_R/Images/plot_zoom_png2"
       alt = "Daily Closing Shares AMBEV3.SA"
       style="width:600px;height:300px;"/>
 
@@ -144,7 +144,7 @@ In our Candlestick chart, let's add the **Bollinger Bands** with *Simple Moving 
 ``` r
 addBBands(n = 20, sd = 2)
 ```
- <img src="Bollinger_Band"
+ <img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Financial_Data_Analysis_With_R/Images/Bollinger_Band"
       alt = "Daily Closing Shares AMBEV3.SA"
       style="width:600px;height:300px;"/>
 
@@ -155,7 +155,7 @@ We will use the function *addADX* from *quantmod* to add the Directional Movemen
 ``` r
 addADX(n=11, maType = "EMA")
 ```
- <img src="ADX"
+ <img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Financial_Data_Analysis_With_R/Images/ADX"
       alt = "Daily Closing Shares AMBEV3.SA"
       style="width:700px;height:300px;"/>
 
@@ -177,7 +177,7 @@ plot(ABEV3.SA.ret,
      major.ticks="month",
      minor.ticks=FALSE)
 ```
-  <img src="log_scale"
+  <img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Financial_Data_Analysis_With_R/Images/log_scale"
       alt = "Daily Closing Shares AMBEV3.SA"
       style="width:700px;height:300px;"/>
 
