@@ -77,7 +77,7 @@ class(ABEV3.SA)
 ```
 *getSymbols* has returned an object of type *xts zoo*. *zoo* is a time-series data type considered in R. What really categorize a time-series is a data sequence over time, which makes possible to do sales predictions, for example. Note that, we could use any company share for this example, but we preferred to use a company from Brazil Stock Market, in this case, the company AMBEV.
 
-<img src="logo-b3.png" alt = "B3" style="width:200px;height:200px;"/>
+<img src="https://www.onze.com.br/blog/wp-content/uploads/2017/11/bvmf3-1024x587.jpg" alt = "B3" style="width:50px;height:50px;"/>
 
 If you want to know more about Brazil Stock Market, B3, check the link below:
 
