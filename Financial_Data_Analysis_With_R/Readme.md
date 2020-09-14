@@ -2,7 +2,7 @@
 
 <div align="center">
   <p>
-    <strong>Let's use R to study Stock Marcket?</strong>
+    <strong>Let's use R to study Stock Market?</strong>
   </p>
   <p>
     <a href="https://www.r-project.org/about.html" target="_blank" rel="noopener">
@@ -16,7 +16,7 @@
     <img src="https://img.shields.io/badge/rstudio-v1.2.5-blue">
 
   <a href="https://www.quantmod.com/download/" target="_blank" rel="noopener">
-    <img src=" https://img.shields.io/badge/quantmod-v0.4.17-blueviolet">
+    <img src="https://img.shields.io/badge/quantmod-v0.4.17-blueviolet">
 
   <a href="https://r-forge.r-project.org/R/?group_id=118" target="_blank" rel="noopener">
     <img src="https://img.shields.io/badge/xts-v0.12-blueviolet">
