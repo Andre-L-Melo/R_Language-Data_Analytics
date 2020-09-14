@@ -1,4 +1,5 @@
 <h1 align="center">FINANCIAL DATA ANALYSIS USING R</h1>
+
 <div align="center">
   <p>
     <strong>Let's use R to study Stock Marcket?</strong>
@@ -12,16 +13,16 @@
 
 <div align="center">
   <a href="https://rstudio.com/" target="_blank" rel="noopener">
-    <img src="https://img.shields.io/badge/rstudio-v1.2.5-blue"/>
+    <img src="https://img.shields.io/badge/rstudio-v1.2.5-blue">
 
   <a href="https://www.quantmod.com/download/" target="_blank" rel="noopener">
-    <img src=" https://img.shields.io/badge/quantmod-v0.4.17-blueviolet"/>
+    <img src=" https://img.shields.io/badge/quantmod-v0.4.17-blueviolet">
 
   <a href="https://r-forge.r-project.org/R/?group_id=118" target="_blank" rel="noopener">
-    <img src="https://img.shields.io/badge/xts-v0.12-blueviolet"/>
+    <img src="https://img.shields.io/badge/xts-v0.12-blueviolet">
 
   <a href="https://cran.r-project.org/web/packages/moments/index.html" target="_blank" rel="noopener">
-    <img src="https://img.shields.io/badge/moments-v0.14-blueviolet"/>
+    <img src="https://img.shields.io/badge/moments-v0.14-blueviolet">
   </a>
 </div>
 
@@ -215,4 +216,4 @@ head(Abv,2)
 
 ## Author
 
-| [<img src="https://avatars3.githubusercontent.com/u/47090012?s=460&u=0180e5d8646087e40786286006fc2505548b9e2a&v=4" width=200><br><sub>@meloandrew</sub>](https://github.com/meloandrew) | [<img 
+[<img src="https://avatars3.githubusercontent.com/u/47090012?s=460&u=0180e5d8646087e40786286006fc2505548b9e2a&v=4" width=200><br><sub>@meloandrew</sub>](https://github.com/meloandrew) | [<img 
