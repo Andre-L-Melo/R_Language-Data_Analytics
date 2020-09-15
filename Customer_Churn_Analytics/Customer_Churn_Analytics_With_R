@@ -1,46 +1,48 @@
-# Big Data na Prática 4 - Customer Churn Analytics 
+# Customer Churn Analytics With R
 
-# A rotatividade (churn) de clientes ocorre quando clientes ou assinantes param de fazer negócios 
-# com uma empresa ou serviço. Também é conhecido como perda de clientes ou taxa de cancelamento.
+# Churn is the same as turnover. When a client buys a product or hire a service, he/she probably will not keep it for all the eternity, so, 
+# in some moment the client will no longer be a client, that is what churn means.
+# Thereby, we pretend to predict the Churn based in historical data collected.
+# Who will be the next customer to turnover a product or service? After answering this question, we can define the best future strategy to be adopted.
 
-# Um setor no qual saber e prever as taxas de cancelamento é particularmente útil 
-# é o setor de telecomunicações, porque a maioria dos clientes tem várias opções 
-# de escolha dentro de uma localização geográfica.
+# The customer churn happens when a client or subscriber stop doing business with a company or service. 
+# It is also known as client loss or revocation rate. To know and to predict these revocation rates is particularly useful for the telecommunication industry, 
+# because most customers have several options to choose from within a geographic location. 
 
-# Neste projeto, vamos prever a rotatividade (churn) de clientes usando um conjunto 
-# de dados de telecomunicações.Usaremos a regressão logística, a árvore de decisão 
-# e a floresta aleatória como modelos de Machine Learning. 
+# In this project we will predict de customer churn using a telecommunication dataset. 
+# We will use some of the many Machine Learning algorithms, such as logistic regression, decision tree and random forest. 
 
-# Usaremos um dataset oferecido gratuitamente no portal IBM Sample Data Sets. 
-# Cada linha representa um cliente e cada coluna contém os atributos desse cliente.
+# The dataset is offered by IBM Sample Data Sets.
+
+# Each dataset line represents a client and each column has all its features. 
 
 # https://www.ibm.com/communities/analytics/watson-analytics-blog/guide-to-sample-datasets/
 
-# Definindo o diretório de trabalho
+# Set Workspace
 setwd("C:/CursoFCD/3.0BigData_Analytics_R_e_Azure_MachineLearning/Pratica/Cap06")
 getwd()
 
-# Carregando os Pacotes
+# Load Packages
 library(plyr)
 library(dplyr)
 library(corrplot)
 library(ggplot2)
 library(gridExtra)
 library(ggthemes)
-library(caret) # Oferece os algoritmos de regressão logística e árvore de decisão
+library(caret) # Offers logistic regression and decision tree algorithms
 library(MASS)
-library(randomForest) # Oferece o algoritmo de floresta aleatória
-library(party) # Oferece ferramentas de Relatórios
+library(randomForest) # Offers random forest algorithm
+library(party) # Offers report tools
 sessionInfo()
 
-# **** Carregando e Limpando os Dados ****
+# **** Loading and Cleaning Data ****
 
-# Os dados brutos contém 7043 linhas (clientes) e 21 colunas (recursos).
-# A coluna "churn" é o nosso alvo.
+# The raw data has 7043 lines (customers) and 21 columns (features).
+# The "churn" columns is our target variable.
 churn <- read.csv('06-Telco-Customer-Churn.csv', stringsAsFactors = TRUE)
 
-# A coluna de interesse, que é a coluna "churn" é uma coluna que armazena valores categóricos, ou 
-# fatores, com apenas dois níveis : "Yes" and "No". Ou seja, o cliente cancelou o plano ou não?
+# The column of interest stores categorical values, or factors, with only two levels: "yes" and "no". 
+# In other words, the client has canceled the service or no? 
 View(churn)
 head(churn, 3)
 dim(churn)
@@ -48,31 +50,23 @@ nrow(churn)
 ncol(churn)
 str(churn)
 
-# Utilizar o sapply para verificar o número de valores ausentes (missing) em cada coluna.
-# Descobrimos que há 11 valores ausentes nas colunas "Totalcharges".
-# Então, vamos remover todas as linhas com valores ausentes.
-# A função de x irá realizar a soma para cada elemento do dataframe, ou seja, para suas 21 colunas,
-# de todos os elementos que são NA, Missing Values.
+# First, we will use the sapply() function, one of the many from the apply family. 
+# The apply family provides functions that replace the use of loops, but in a more efficient way, 
+# for example, the sapply function is great when we are trying to work with vectors and lists. 
+# In this case we are going to apply a function to each element of list, this function will sum for each column all the NA values. 
+# This will be useful to know where we have Missing Values.
 sapply(churn,function(x) sum (is.na(x)))
-help(complete.cases) # Retorna um vetor lógico com os cases completos (no missing values).
+help(complete.cases) 
 example(complete.cases)
-# Irá constar apenas as linhas completas do dataframe original, sem missing values.
 churn <- churn[complete.cases(churn),]
-# Veja que, não temos mais nenhum missing value em nenhuma linha do dataframe.
 sapply(churn,function(x) sum (is.na(x)))
 
-# Olhe para as variáveis, podemos ver que temos algumas limpezas e ajustes para fazer.
-
-# Primeira mudança: Vamos mudar "No internet service" para "No" por seis colunas, que são:
-# "OnlineSecurity", "OnlineBackup", "DeviceProtection", "TechSupport", "StreamingTV",
-# "StreamingMovies".
+# 2º Change: We will replace the sentence "No internet service" with "No" in six differents columns:
+# "OnlineSecurity", "OnlineBackup", "DeviceProtection", "TechSupport", "StreamingTV", "StreamingMovies".
 str(churn)
 summary(churn)
-# Note que, as seis colunas começam na posição 10 do dataframe e vão até a posição 15, analisando
-# na numeração da coluna do dataframe.
-# A ideia é criar um loop, ou laço, que irá alterar esse dado apenas para as colunas da posição 10
-# até a posição 15 do dataframe.
-# Inicialmente, criamos um vetor que irá de 10 até 15, simbolizando essas colunas:
+# We can create a loop that will replace the values in each columns so as we desire. 
+# First, let's create a vector which will store a range values going from 10 to 15.
 cols_recode1 <- c(10:15)
 # Lógica:
 # Criar um loop que irá armazenar nas colunas de 10 até 15 os valores substituídos desejados.
