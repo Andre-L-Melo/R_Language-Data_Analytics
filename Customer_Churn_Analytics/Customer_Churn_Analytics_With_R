@@ -1,12 +1,14 @@
 # Customer Churn Analytics With R
 
-# Churn is the same as turnover. When a client buys a product or hire a service, he/she probably will not keep it for all the eternity, so, 
-# in some moment the client will no longer be a client, that is what churn means.
+# Churn is the same as turnover. When a client buys a product or hire a service, he/she probably will not keep it for all the eternity, 
+# so, in some moment the client will no longer be a client, that is what churn means.
 # Thereby, we pretend to predict the Churn based in historical data collected.
-# Who will be the next customer to turnover a product or service? After answering this question, we can define the best future strategy to be adopted.
+# Who will be the next customer to turnover a product or service? 
+# After answering this question, we can define the best future strategy to be adopted.
 
 # The customer churn happens when a client or subscriber stop doing business with a company or service. 
-# It is also known as client loss or revocation rate. To know and to predict these revocation rates is particularly useful for the telecommunication industry, 
+# It is also known as client loss or revocation rate. 
+# To know and to predict these revocation rates is particularly useful for the telecommunication industry, 
 # because most customers have several options to choose from within a geographic location. 
 
 # In this project we will predict de customer churn using a telecommunication dataset. 
@@ -51,31 +53,20 @@ ncol(churn)
 str(churn)
 
 # First, we will use the sapply() function, one of the many from the apply family. 
-# The apply family provides functions that replace the use of loops, but in a more efficient way, 
-# for example, the sapply function is great when we are trying to work with vectors and lists. 
-# In this case we are going to apply a function to each element of list, this function will sum for each column all the NA values. 
-# This will be useful to know where we have Missing Values.
 sapply(churn,function(x) sum (is.na(x)))
 help(complete.cases) 
 example(complete.cases)
 churn <- churn[complete.cases(churn),]
 sapply(churn,function(x) sum (is.na(x)))
 
-# 2º Change: We will replace the sentence "No internet service" with "No" in six differents columns:
+# Second Change: We will replace the sentence "No internet service" with "No" in six differents columns:
 # "OnlineSecurity", "OnlineBackup", "DeviceProtection", "TechSupport", "StreamingTV", "StreamingMovies".
 str(churn)
 summary(churn)
 # We can create a loop that will replace the values in each columns so as we desire. 
 # First, let's create a vector which will store a range values going from 10 to 15.
 cols_recode1 <- c(10:15)
-# Lógica:
-# Criar um loop que irá armazenar nas colunas de 10 até 15 os valores substituídos desejados.
-# O loop deve ser limitado de 1 até o número de colunas desejadas (de 10 até 15 totalizando 6).
-# No loop poderíamos colocar o limite superior igual a 6 ao invés de usar ncol.
-# Dentro do loop precisamos definir as colunas de churn como indo de 10 até 15, por isso usamos
-# um vetor de 10:15 como índice de coluna, e selecionamos a coluna pelo integrador i.
-# Guardamos na coluna correspondente a 1 os dados em forma de fator com a variável desejada, fazemos
-# essa substituição com a função mapvalues.
+
 for(i in 1:ncol(churn[,cols_recode1])){
   churn[,cols_recode1][,i] <- as.factor(mapvalues
                                         (churn[,cols_recode1][,i],
@@ -85,7 +76,7 @@ for(i in 1:ncol(churn[,cols_recode1])){
 
 View(churn)
 
-# Segunda mudança: Vamos mudar "No phone service" para "No" para a coluna "MultipleLines"
+# Third change: Replace "No phone service" with "No" in the column"MultipleLines".
 churn$MultipleLines <- as.factor(mapvalues(churn$MultipleLines,
                                            from = c("No phone service"),
                                            to = c("No")))
@@ -93,11 +84,11 @@ churn$MultipleLines <- as.factor(mapvalues(churn$MultipleLines,
 
 head(churn,3)
 
-# Terceira mudança: Como a permanência mínima é de 1 mês e a permanência máxima é de 
-# 72 meses, podemos agrupá-los em cinco grupos de posse (tenure):
+# Fourth change: The "tenure" column is related to the lenght period the customer had the service. 
+# The minimum lenght period is 1 month and the maximum is 72 meses. Well, we can split it into 5 different groups, like:
 # "0-12 Mês", "12-24 Mês", "24-48 Mês", "48-60 Mês", Mês "," > 60 Mês.
 min(churn$tenure); max(churn$tenure)
-# Criar a função que realizará a operação de classificação por grupo
+
 group_tenure <- function(tenure) {
   if(tenure>= 0 & tenure <= 12){
     return('0-12 Month')
@@ -111,59 +102,45 @@ group_tenure <- function(tenure) {
     return('> 60 Month')
   }
 }
-# Aplicar a função na coluna com os dados de tenure
+
+# Apply the function in the column "group_tenure".
+# Store the values in a new column.
 churn$tenure_group <- sapply(churn$tenure, group_tenure)
 churn$tenure_group <- as.factor(churn$tenure_group)
 str(churn$tenure_group)
 View(churn)
 
-# Quarta mudança: Alteramos os valores na coluna "SeniorCitizen" de 0 ou 1 para "No" ou "Yes"
+# Fifth Change: Change "SeniorCitizen" values from  0 or 1 to "No" or "Yes".
 churn$SeniorCitizen <- as.factor(mapvalues(churn$SeniorCitizen,
                                            from = c("0","1"),
                                            to = c("No","Yes")))
 str(churn$SeniorCitizen)
 
 
-# Quinta mudança: Removemos as colunas que não precisamos para a análise
-# Geralmente, o ID não precisa ser utilizado no processo de modelagem, pois o ID
-# é um identificador único, sendo uma informação não relevante para o treinamento
-# do modelo de Machine Learning.
+# Sixth Change: Remove unnecessary columns.
+# Usually, the ID column is not useful to create our model, so let's remove it.
 churn$customerID <- NULL
 churn$tenure <- NULL
 View(churn)
 
-#### **** Análise Exploratória dos Dados e Seleção de Recursos **** ####
+#### **** Exploratory Analysis and Feature Selection **** ####
 
-### Verificar a correlação entre as variáveis numéricas ###
-# Quais são as variáveis numéricas: usamos a função sapply que verificará quais
-# colunas armazenam registros numéricos ou não.
+### Check Numerical Variables Correlation ###
+# Filter only the numerical variables.
 numeric.var <- sapply(churn,is.numeric)
 numeric.var
-# Armazenaremos esse resultado em uma matriz de correlação
+# Use the function "cor()" to create a correlation matrix with the numerical variables.
 corr.matrix <- cor(churn[,numeric.var])
-# Vemos que existem duas variáveis numéricas: MonthlyCharges e TotalCharges
 corr.matrix
-# Plotamos um gráfico de correlação entre as duas variáveis
+
+# Plot a correlation matrix chart.
 corrplot(corr.matrix,main="\n\nNumerical Variable Correlation Chart", col = cm.colors(100), tl.col = "black")
 
-corrplot(corr.matrix)
-# Precisamos utilizar essas duas variáveis durante o processo de análise?
-# Temos duas variáveis que praticamente querem dizer a mesma coisa,
-# talvez se utilizarmos ambas no mesmo processo de Machine Learning,
-# poderá causar um overfitting.
-# Vemos, pelo gráfico, que a correlação entre as duas variáveis é de 0.65,
-# o que é um valor relativamente alto. Se incluirmos ambas no modelo, 
-# poderemos sofrer do problema de multicolinearidade.
-# Por conta disso, simplesmente removemos uma das variáveis.
-# Os encargos mensais e os encargos totais estão correlacionados. 
-# Então, um deles será removido do modelo. Nós removemos Total Charges.
+# Since both variables has a strong correlation level, we can remove one of them in order to avoid Overfitting.
 churn$TotalCharges <- NULL
 
-##### Gráficos de Barra de Variáveis Categóricas #####
-# Os gráficos serão plotados utilizando o pacote ggplot2, função ggplot
-# Primeiro iremos analisar a relação de distribuição de quatro variáveis
-# categóricas, sendo plotada em gráficos com coordenadas invertidas e 
-# dentro da mesma área de plotagem.
+##### Categorical Variables Bar Chart #####
+
 # GENDER:
 p1 <- ggplot(churn, aes(x=gender)) + ggtitle("Gender") + xlab("Sex") +
   geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5, fill = "red", alpha = 0.8) + 
@@ -183,7 +160,6 @@ p4 <- ggplot(churn, aes(x=Dependents)) + ggtitle("Dependents") + xlab("Dependent
 
 grid.arrange(p1, p2, p3, p4, ncol=2)
 
-# Mais 4 variáveis:
 # PHONESERVICE:
 p5 <- ggplot(churn, aes(x=PhoneService)) + ggtitle("Phone Service") + xlab("Phone Service") +
   geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5, fill = "wheat1", alpha = 0.8) + 
@@ -203,7 +179,6 @@ p8 <- ggplot(churn, aes(x=OnlineSecurity)) + ggtitle("Online Security") + xlab("
 
 grid.arrange(p5, p6, p7, p8, ncol=2)
 
-# Mais 4 variáveis:
 # ONLINEBACKUP:
 p9 <- ggplot(churn, aes(x=OnlineBackup)) + ggtitle("Online Backup") + xlab("Online Backup") +
   geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5,fill = "orangered1", alpha = 0.8) + 
@@ -223,7 +198,6 @@ p12 <- ggplot(churn, aes(x=StreamingTV)) + ggtitle("Streaming TV") + xlab("Strea
 
 grid.arrange(p9, p10, p11, p12, ncol=2)
 
-# Mais 5 variáveis:
 # STREAMINGMOVIES:
 p13 <- ggplot(churn, aes(x=StreamingMovies)) + ggtitle("Streaming Movies") + xlab("Streaming Movies") +
   geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5, fill = "chocolate1", alpha = 0.8) + 
@@ -249,27 +223,20 @@ grid.arrange(p13, p14, p15, p16, p17, ncol=2)
 
 View(churn)
 
-# Todas as variáveis categóricas parecem ter uma distribuição razoavelmente ampla, 
-# portanto, todas elas serão mantidas para análise posterior.
+# All categorical variables seem to show a reasonable wide distribution, therefore, we will keep them in our dataset. 
 
+# **** Predictive Modeling ****
 
-# **** Modelagem Preditiva ****
+#### Logistic Regression ####
+# -> The Logistic Regression is a Machine Learning Algorithm for classification problems. 
 
-#### Regressão Logística ####
-# -> A regressão logística é um algoritmo de Machine Learning para classificação. 
-
-# Primeiramente, dividimos os dados em conjuntos de treinamento e testes
+# First of all, we will divide the original data into training and testing data.
+# Proportion of 70% to train and 30% to test.
 help("createDataPartition")
 help("set.seed")
-# A função createDataPartition cria uma série repartições para testes e a mesma
-# pertence ao pacote caret. 
-# O parâmetro p recebe uma porcentagem dos dados que irão para treinamento.
-# Basicamente, teremos 70 porcento dos dados que irão para treinamento e 
-# o restante irão para teste.
+set.seed(2017)
 intrain <- createDataPartition(churn$Churn, p=0.7, list = FALSE)
 class(intrain) # uma matriz com os dados de teste 
-# Garante que a sequência randômica gerada pelo script da aula
-set.seed(2017)
 training <- churn[intrain,]
 class(training)
 testing <- churn[-intrain,]
@@ -277,105 +244,60 @@ class(testing)
 View(training)
 View(testing)
 
-# Confirme se a divisão está correta
+# Evaluate data splitting.
 dim(training)
 dim(testing)
 
-# Treinamento do Modelo de Regressão Logística
+# Logistic Regression Training.
 help(glm)
-# A função glm é utilizada para adequadar modelos lineares generalizados, especificados
-# por uma descrição simbolica do preditor linear e da descrição do erro de distribuição.
-# Aceita como parâmetro uma fórmula, ou seja, uma descrição simbólica do modelo a ser 
-# adequado, no nosso caso, utilizamos a variável alvo Churn relacionando com todas as 
-# outras variáveis do conjunto de treinamento, o qual irá alimentar o meu modelo
-# de regressão logística. 
-# Family é a descrição do erro de distribuição, nesse caso indicamos que queremos um parãmetro
-# binomial com regressão logística, a qual é representada pelo logit em link.
-# Data é um dataframe opcional, 
-# o qual contem as variavéis do modelo
-# Resumidamente, informamos os dados que irão treinar o modelo preditivo (data), 
-# informamos o tipo de algoritmo a ser utilizado (family / link),
-# informamos as variáveis que serão incluidas nesse treinamento.
 LogModel <- glm(Churn ~., family = binomial(link="logit"), data = training)
 print(summary(LogModel))
 
+#### Variance Analysis ANOVA ####
 
-
-#### Análise de Variância - ANOVA ####
-
-# Os três principais recursos mais relevantes incluem 
-# Contract, tenure_group e PaperlessBilling.
-# A função anova computa análises de variância para um ou mais modelos preditivos.
+# The three most important resources are: Contract, tenure_group and PaperlessBilling. 
+# The ANOVA function compute variance analysis for one or more predictive model.
 help(anova)
 anova(LogModel, test="Chisq")
 
-# Analisando a tabela de variância, podemos ver a queda no desvio ao adicionar cada variável 
-# uma de cada vez. Adicionar InternetService, Contract e tenure_group reduz 
-# significativamente o desvio residual. 
-# As outras variáveis, como PaymentMethod e Dependents, parecem melhorar menos o modelo, 
-# embora todos tenham valores p baixos.
-# Realizar mudança nos valores de Churn no conjunto de dados para teste
+# Let's replace the values "No" or "Yes" to "0" or "1" in the "Churn" column.
 testing$Churn <- as.character(testing$Churn)
 testing$Churn[testing$Churn=="No"] <- "0"
 testing$Churn[testing$Churn=="Yes"] <- "1"
 head(testing, 3)
 
-# Verificar o nível de acurácia do modelo
+# Check model accuracy.
 fitted.results <- predict(LogModel,newdata=testing,type='response')
 fitted.results <- ifelse(fitted.results > 0.5,1,0)
 misClasificError <- mean(fitted.results != testing$Churn)
 print(misClasificError)
 print(paste('Logistic Regression Accuracy',1-misClasificError))
 
-# Imprimir uma matriz de confusão da regressão logística
+# Print the confusion matrix.
 print("Confusion Matrix for Logistic Regression");table(testing$Churn, fitted.results > 0.5)
-
 library(gmodels)
 CrossTable(fitted.results, testing$Churn, prop.chisq = FALSE, 
            prop.t = FALSE, prop.r = FALSE, dnn = c("predicted", "actual"))
 
-# Outra medida a ser utilizada em uma Logistic Confusion
-# Odds Ratio
-# Uma das medidas de desempenho interessantes na regressão logística é Odds Ratio.
-# Basicamente, odds ratio é a chance de um evento acontecer.
+# Another useful measure is the Odds Ratio for Logistic Confusion.
+# Odds Ratio represents the chance of an event happens
 exp(cbind(OR=coef(LogModel), confint(LogModel)))
-# Concluímos que, para cada aumento na unidade no encargo mensal (Monthly Charge)
-# há uma redução de 2.5% na probabilidade do cliente cancelar a assinatura.
 str(testing)
 
-#### Árvore de Decisão ####
+#### Decision Tree ####
 
-# Visualização da Árvore de Decisão
-# Para fins de ilustração, vamos usar apenas três variáveis para plotar 
-# a árvores de decisão, elas são: “Contrato”, “tenure_group” e “PaperlessBilling”,
-# que conforme verificado pelo anova, são as principais variáveis ou recursos para
-# um modelo preditivo (embora a análise tenha sido baseada em um modelo Logistic Regression)
+# Plotting a Decision Tree.
+# For illustration purposes, let's use three variables to create the Decision Tree model.
+# These variables are: Contract, tenure_group and PaperlessBilling.
 ?ctree
-# A função ctree gera árvores de inferência condiciona.
-# Aceita como parâmetros uma fórmula, ou relação de variáveis, geralmente a variável target
-# é posta do lado esquerdo da fórmula e os recursos do lado direito. Também recebe como 
-# parâmetro o data frame contendo as variáveis do modelo.
-# Nesse caso, precisamos treinar o modelo com o conjunto de dados de treinamento.
 tree <- ctree(Churn ~ Contract+tenure_group+PaperlessBilling, training)
 plot(tree, type='simple')
 
-# Interpretação do modelo criado:
-# 1. Das três variáveis que usamos, o Contrato é a variável mais importante 
-# para prever a rotatividade de clientes ou não.
-# 2. Se um cliente em um contrato de um ano ou de dois anos, 
-# não importa se ele (ela) tem ou não a PapelessBilling, ele (ela) é menos propenso 
-# a se cancelar a assinatura.
-# 3. Por outro lado, se um cliente estiver em um contrato mensal, 
-# e no grupo de posse de 0 a 12 meses, e usando o PaperlessBilling, 
-# esse cliente terá mais chances de cancelar a assinatura.
-
-# Gerar previsões com o modelo criado:
-# Matriz de Confusão da Árvore de Decisão
-# Estamos usando todas as variáveis para tabela de matriz de confusão de produto e fazer previsões.
+# Decision Tree Predictions and Confusion Matrix.
 pred_tree <- predict(tree, testing)
 CrossTable(pred_tree, testing$Churn, prop.chisq = FALSE, prop.t = FALSE, prop.r = FALSE, dnn = c("predicted", "actual"))
 
-# Verificar o nível de acurácia desse modelo preditivo:
+# Accuracy Level.
 p1 <- predict(tree, training)
 tab1 <- table(Predicted = p1, Actual = training$Churn)
 tab2 <- table(Predicted = pred_tree, Actual = testing$Churn)
@@ -385,32 +307,24 @@ print(paste('Decision Tree Accuracy',sum(diag(tab2))/sum(tab2)))
 
 set.seed(2017)
 ?randomForest
-# A função randomForest implementa um algoritmo para classificação e regressão.
-# Também pode ser usado em modelos sem supervisão para validar aproximações entre 
-# pontos de dados.
-# Criar o modelo preditivo (alimentar o mesmo com os dados de treino)
-# Utilizar todos os recursos e a variável target.
+# randomForest function creates a classification and regression algorithm.
 rfModel <- randomForest(Churn~.,data = training)
 print(rfModel)
-# Tipo do random forest: classificação
-# Número de árvores: 500
+# Random Forest trype: classification.
+# Number of trees: 500.
 plot(rfModel)
 
-# A previsão é muito boa ao prever "Não". 
-# A taxa de erros é muito maior quando se prevê "sim".
+# It has good performance when is predicting "No". 
+# The error rate increases when is predicting "Yes".
 
-# Prevendo valores com dados de teste
+# Predicting values.
 pred_rf <- predict(rfModel, testing)
 
-# Confusion Matrix
+# Confusion Matrix.
 CrossTable(pred_rf, testing$Churn, prop.chisq = FALSE, prop.t = FALSE, prop.r = FALSE, dnn = c("predicted", "actual"))
 
 
-# Recursos mais importantes
+# Check the most important resources.
 ?varImpPlot
-# Verificar a importância das variáveis
-# Podemos usar a anova ou o modelo randomforest para isso
-# A função varImpPlot irá olhar parao modelo criado, rfModel,
-# e irá buscar quais foram as variáveis mais importantes para o cálculo da precisão
-# do modelo.
+# varImpPlot function will look to the model and search for the most important variables
 varImpPlot(rfModel, sort=T, n.var = 10, main = 'Top 10 Feature Importance')
