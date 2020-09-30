@@ -24,8 +24,7 @@
 </div>
 
 ## Why R?
-For many, the R language is not considered a programming language, but a statistic package which has some functionalities and features for coding, such as loops, conditionals, variables, functions and others.
-It is open source and all its packages are maintaned by CRAN (https://cran.r-project.org).
+For many, the R language is not a programming language, but a statistic package that has some functionalities and features for coding, such as loops, conditionals, variables, functions, and others. It is open-source with all its features maintained by CRAN (https://cran.r-project.org). 
 
 The R language allows us to:
 
@@ -40,31 +39,35 @@ The R language allows us to:
 ## STATISTICAL CONCEPTS
 
 ### Central Limit Theorem
-The Central Limit Theorem is an important statistical concept which is the base for many other theorems, considered "the mother of all theorems".
+The Central Limit Theorem is a statistical concept that is the base for many other theorems, considered "the mother of all theorems" for many statisticians.
 
-This Theorem implicates that when a sample size increases, the sample mean distribution get even closer to a normal distribution.
+The Central Limit Theorem implicates that when sample size increases, the sample means distribution gets even closer to a normal distribution.
 
  <img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Statistical_Analysis_With_R:Hypothesis_Test/Images/Centra_Limit_Theorem.png"
       alt = "Central Limit Theorem"
       style="width:400px"/>
 
-If you have a normal distribution in hands, you can obtain a serie of insights.
+If you have a normal distribution in your hands, you can obtain a series of insights.
 
-This Theorem is fundamental in the inferential statistics theory and without it, statistic wouldn't have envolved into the science it is today.
+It is fundamental in the inferential statistics theory that without it, the statistic wouldn't have evolved into the science it is today.
 
-The picture below is wordless, because it is an excelent way to you understand what a normal distribution really is. You can see that we have a rabbit series as a normal distribution. In the left side is the lower tail with the smaller rabbits. In the right side is the upper tail with the bigger rabbits. In the middle, we have the average. If we can get any distribution and represent it in a normal distribution, we may obtain a series of insights, such as, probability, mean, median, change the standard deviance, among others.
+The picture below is wordless because it is an excellent way to you understand what a normal distribution is. You can see that we have a rabbit series as a normal distribution. 
+
+Any distribution, no matter what kind it is, if it assumes a normal distribution, could be represented as a sine curve, it would result in insights of our data that could be easily understood.
 
  <img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Statistical_Analysis_With_R:Hypothesis_Test/Images/Normal_Distribution.png"
       alt = "Normal Distribution"
       style="width:600;height:300px;"/>
 
-If a sample size is equal or greater than 30, n >= 30, then the sample means can be approximated by a normal distribution. In this case, **the mean of the sample means** will be the population mean.
+If a sample size is equal or greater than 30, n >= 30, then the sample means can be approximated by a normal distribution. 
 
-For a variable *x* whose data is a normal distribution, the sample means distribution will have a normal distribution for any sample size.
+In this case, the mean of the sample means will be the population mean.
 
-We can see that the sample size has an important function in the Central Limit Theorem.
+For a variable x whose data is a normal distribution, the sample means distribution will have a normal distribution for any sample size.
 
-When the sample size is increased, the mean standard deviation becomes even smaller, which reduces the sample error.
+We can see that the sample size has a function in the Central Limit Theorem.
+
+When the sample size increases, the mean of standard deviation becomes even smaller, which reduces the sampling error.
 
 So, if you increase the sample size, you reduce the standard deviance.
 
@@ -74,13 +77,13 @@ So, if you increase the sample size, you reduce the standard deviance.
 
 Based on this, we have two important rules:
 
-1. **To any population**: The mean value for all possible sample means, from a given population size is equal to the population mean.
+1. **To any population**: The mean value for all possible sample means, from given population size, is equal to our primary data mean.
 
  <img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Statistical_Analysis_With_R:Hypothesis_Test/Images/First_Rule.png"
       alt = "First Rule"
       style="width:200"/>
 
-2. **To any population**: The sample means standard deviation of size *n* is equal do the population standard deviation divide by the sample size square root.
+2. **To any population**: The sample means the standard deviation of size n is equal do the population standard deviation divide by the sample size square root.
 
  <img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Statistical_Analysis_With_R:Hypothesis_Test/Images/Second_Rule.png"
       alt = "Second Rule"
@@ -90,19 +93,27 @@ But after all, what is so extraordinary about the Central Limit Theorem?
 
 It says that no matter what form the original distribution has, its means will have a normal distribution.
 
-This theorem allows us to measure the sample mean variance, so, there is no need to collect another sample mean to compare.
+This theorem allows us to measure the sample mean-variance, so, there is no need to collect another sample mean to compare.
 
 For example, imagine that a group of drivers travel 12.000 km a year, with a standard deviation of 2.580 km. What is the probability that 36 drivers randomly selected travel more than 12.500 km a year?
 
 The sample size is bigger enough (n >= 30), so we can use the Central Limit Theorem to find our answer.
 
-The mean of the sample means is equal to the population mean, which is equal to 12.000 km a year.
+The mean of the sample means can be equal to the population mean.
 
-The sample mean standard deviation is equal to the population standard deviation divide by the sample size square root, resulting in 430 km.
+In this case, the mean of the sample means is equal to 12.000 km a year.
 
-The z-score can be calculated by dividing the result of sample mean minus mean of the sample means by mean standard deviation. The sample mean in this case is equal to 12.500 km, so, the z-score is 1.16.
+The sample means standard deviation is equal to the population standard deviation divide by the sample size square root, resulting in 430 km.
 
-Based on this, we know that the probability for z-score greater than 1.16 is the same for sample mean equal to 12.500, in this case, for z-score equal to 1.16, the probability is 0.8770, minus 1 we have 0.1230 which is the probability to select a random sample of 36 driver who drive more than 12.500 km a year.
+We can obtain the z-score by dividing the result of the sample mean minus mean of the sample means by the standard deviation mean. 
+
+The sample mean is equal to 12.500 km, with a z-score of 1.16.
+
+Based on this, we know that the probability for z-score greater than 1.16 is the same for a sample mean equal to 12.500.
+
+With z-score equal to 1.16, the corresponding probability is 0.8770. Subtracting the corresponding probability by 1 we obtain 0.1230.
+
+This value is the probability of a random sample of 36 drivers who drive more than 12.500 km a year be selected.
 
  <img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Statistical_Analysis_With_R:Hypothesis_Test/Images/Central_Limit_Theorem_Example.png"
       alt = "Central Limit Example"
@@ -111,7 +122,7 @@ Based on this, we know that the probability for z-score greater than 1.16 is the
 ### Z-Score
 The z-score identifies the standard deviation number that some value has.
 
-Think of z-score as a simple value conversion to a specific unity, in order to reach a conclusion.
+Think of z-score as a simple value conversion to a specific unity, to conclude.
 
 The table below shows some sandwiches and their number of calories:
 
@@ -119,15 +130,15 @@ The table below shows some sandwiches and their number of calories:
       alt = "Score_Z_Example"
       style="width:200"/>
 
-We will calculate the z-score for the Mega Burger. Let's assume that the sample mean is equal to 1.420 calories, the mean of the sample means is 776,30 calorias (assumig that we are working with a sample greater than 30 records, so we can use the Central Limit Theorem) and mean standard deviation is 385,10. With this, the z-score is equal to 1.67. That is the same as we say the Mega Burger calories are 1,67 standard deviation above the mean.
-
+We will calculate the z-score for the Mega Burger. Let's assume that the sample mean is equal to 1.420 calories, the mean of the sample means is equal to  776,30 calories (assuming that we are working with a data sample with more than 30 records, because of the Central Limit Theorem), and the standard deviation means is equal to 385,10.
+With this, the z-score is equal to 1.67. That is the same as we say the Mega Burger calories are 1,67 standard deviation above the mean.
 Let's do the same for the Big Mac, which has a sample mean equal to 430 calories, a mean of the sample means equal to 776,30 and mean standard deviation equal to 385,10. With that, the z-score is equal to -0,90, which implies that the Big Mac calories are 0,90 standard deviation below the mean.
 
-This can be used to see how far the data is from the mean.
+It can is worthy to see how far the data is from the mean.
 
-This leads us to consider that, according to the mean values, is expected to choose the Big Mac over Mega Burger sandwiches, because its calories are below the mean calories value.
+We can consider that, according to the mean values, it is wise to choose the Big Mac over Mega Burger, because its calories are below the mean calories value.
 
-The z-score will always have one of the three atributes below:
+The z-score will always have one of the three attributes below:
 
 * Positive: values above average
 * Negative: values below average
@@ -135,32 +146,32 @@ The z-score will always have one of the three atributes below:
 
 Z-score has an important feature: it helps us to identify outliers (extreme values) in our dataset.
 
-Data values with z-score above 3 or below -3 are classified as outliers.
+Data values with z-score above three or below minus three are outliers.
 
  <img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Statistical_Analysis_With_R:Hypothesis_Test/Images/Score_Z_Table.png"
       alt = "Score_Z_Table"
       style="width:200"/>
 
 ### Confidence Interval
-Imagine that an archer is shooting at a target.
+Imagine that a bowman is shooting at a target.
 
-Suppose he hits the center of the 10 cm radius 95% of the time. That is, he only misses once every 20 attempts.
+Suppose he hits the center of the 10 cm radius 95% of the time. That is, he only craves once every 20 attempts.
 
-Behind the target is a statistician, who doesn't know where the center is.
+A statistician is behind the target, and he doesn't know where the center is.
 
 The archer shoots the first arrow.
 
-Knowing the archer skill level, the statistician draws a 10 cm radius circle around the arrow. 
+Knowing the archer skill level, the statistician draws a 10 cm radius circle around the arrow.
 
 He is 95% confidence that the circle includes the target center.
 
-The statistician reasoned that if he drew 10 cm radius circles around the arrows, his circles would include the target center in 95% of cases.
+The statistician reasoned that if he drew 10 cm radius circles around the arrows, his draws would include the target center in 95% of cases.
 
 Summing up, the statistician has collected some samples and built a confidence interval.
 
-This simple example shows exactly what a confidence interval is. All you have to do is determine a minimum limit value, a maximum limit value and assume that inside this limit we will have the population average, for example.
+This simple example shows what a confidence interval is. All you have to do is determine a minimum limit value, a maximum limit value and assume that within, we will have the population average, for example.
 
-In most cases we don't know what is the population average. We only have sample insights.
+In most cases, we don't know what the population average is. We only hold sample insights.
 
 The confidence interval allows us to make population inferences based on collected samples data.
 
@@ -168,23 +179,23 @@ How can we improve the confidence interval?
 
 In this example, there are two ways to increase the confidence interval:
 
-* Increasing the circle radius: This is equal to enlarge the confidence interval (for example, from 95% to 99%). The bigger the interval is, more certain you will be the desidered value is in the range. 
-* Improving the archer's aim: This is equal to increase the number of sample records.
+* By enlarging the circle radius: This is equal to increases the confidence interval (for example, from 95% to 99%). 
+* By improving the archer's aim: This is equal to increase the number of sample records.
 
 ### Confidence Level
-After studying about confidence intervals, we need to undertand what is a confidence level.
+After studying about confidence intervals, we need to understand what is a confidence level.
 
 The confidence level is the probability, which is represented by 1 - α, where α is the Significance Level.
 
-It can be expressed as a percentual value: 100 * (1 - α).
+The Significance Level Percentual Value is 100 * (1 - α).
 
-The chart below helps we understand a bit more about this concept:
+The chart below helps us understand a bit more about this concept:
 
  <img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Statistical_Analysis_With_R:Hypothesis_Test/Images/Confidence_Level.png"
       alt = "Confidence_Level"
       style="width:200"/>
 
-The red line is a normal distribution while the two vertical lines are the upper and lower limits, that define the confidence interval, which is 95% for this example. The α value is divided by two on both ends, to represent the critical values. The result of 1 - α is the Confidence Level, where α is the significance level.
+The red line is a normal distribution, where the two vertical lines are the upper and lower limits, which define the confidence interval, which is 95% for this example. The α value is divided by two on both ends, to represent the critical values. The result of 1 - α is the Confidence Level, where α is the significance level.
 
 Usually, we use the following significance values:
 
@@ -198,9 +209,9 @@ Once more, we have a more detailed chart:
       alt = "Confidence_Level_2"
       style="width:200"/>
 
-The confidence interval consists in a z scale interval (z-score) that is associated to a significance level.
+The confidence interval consists of a z scale interval (z-score) that is associated with a significance level.
 
-If we collect multiple samples and build a confidence interval for each one of them, in the long run, 95% of these intervals would effectively contain the population mean.
+If we collect multiple samples and build a confidence interval for each one of them, in the long run, 95% of these intervals would effectively contain the population means.
 
 ### Critical Value
 The z-score corresponds to the border value of the area in the right or left tails of the normal distribution.
@@ -209,20 +220,20 @@ The z-score corresponds to the border value of the area in the right or left tai
       alt = "Critical_Value"
       style="width:200"/>
 
-By the central limit theorem, we know the sample means tend to a normal distribution. 
+By the central limit, we know the sample means tend to a normal distribution.
 
-Considering α/2 as the area of each extreme point, there is a α possibility for sample mean to be in one of these ends.
+Considering α/2 as the area of each extreme point, there is an α possibility for the sample mean to be in one of these ends.
 
-By the complement rule, there is a probability that sample mean is in the un-shaded region.
+By the complement rule, there is a probability that the sample mean is in the un-shaded region.
 
 ## STATISTICAL ANALYSIS WITH R
-Statistic is one of the pillars that support a Data Science Project.
+The statistic is one of the pillars that support a Data Science Project.
 
-In this project we will learn more about probabilistic samples, central limit theorem, confidence interval and hypothesis test. All these topics belongs to inferential statistics.
+In this project, we will learn more about probabilistic samples, central limit theorem, confidence interval, and hypothesis test. All these topics belong to inferential statistics.
 
-Basically, we collect some data samples, and based on the analysis of each sample we make inferences about the main population. This, by the way, is what we do with Machine learning, rarely we will work with all the population data, usually we would use its samples and from there make some inferences and predictions.
+We collect some data samples where based on the analysis, some inferences are made about the main population. It is what we do with Machine learning, where we will rarely work with all the population data. Usually, we would use its samples and then make some inferences.
 
-For this project, we will use the dataset **nycflights13**. It provides an Airline on-time data for all flights departing New York City in 2013, it also includes some useful "metadata" on airlines, airports, weather and planes. In this case, we are more interested in the **flights** data from the **nycflights13 package**. 
+For this project, we will use the dataset nycflights13. It provides an Airline on-time data for all flights departing New York City in 2013, and it also includes some useful "metadata" on airlines, airports, weather, and planes. In this case, we are more interested in the flight data from the nycflights13 package.
 
 ### Probabilistic Sample
 
@@ -270,10 +281,10 @@ tibble [336,776 x 19] (S3: tbl_df/tbl/data.frame)
  $ minute        : num [1:336776] 15 29 40 45 0 58 0 0 0 0 ...
  $ time_hour     : POSIXct[1:336776], format: "2013-01-01 05:00:00" "2013-01-01 05:00:00" ...
 ```
-Our dataset has 336.776 records and 19 variables or columns. As a first task, we will need to create a new dataset, with only the data from United Airlines (UA) and Delta Airlines (DA) companies. This dataset must contain only two columns, the company name and arrive delay. We will consider this new dataset as our **flight population**. 
+Our dataset has 336.776 records and 19 variables or columns. As a first task, we will need to create a new dataset, with only the data from United Airlines (UA) and Delta Airlines (DA) companies. This dataset must contain only two columns, the company name and arrive delay. We will consider this new dataset as our flight population.
 
 ``` r
-# One way to do that is using dplyr package, which allows us to use the infix operator %>% that works just like a pipe to chain functions together.
+# One way to do that is using the dplyr package, which allows us to use the infix operator %>% that works just like a pipe to chain functions together.
 # We will use "na.omit()" to exclude any NA value in our dataset.
 # Similar with SQL, the select function can be used to get only the columns "carrier" and "arr_delay", note that, we do not need to use the flights$column_name notation.
 # Then, we use the function filter() to get only the DL and UA data and array delay greater than 0 (we just want the delay flights).
@@ -301,15 +312,15 @@ head(pop_data)
 > dim(pop_data)
 [1] 34000     2
 ```
-We have obtained a sample from our flight population by using a **probabilistic sample method**, which means our data had been randomly selected. 
+We have obtained a sample from our flight population by using a probabilistic sample method, which means the data was randomly selected.
 
 So, our sample has 34.000 records and 2 variables: Airline and arrive delay. The arrive delay is given in minutes.
 
 ### Splitting the sample
-Our next task is to divide the sample into two new dataset. One dataset has only UA airline data and the other DL airline data, each one of them with 1.000 records. In other to make thing easier, let's add a third column called "sample_id" for each dataset, for example, UA dataset has a sample_id column equal to 1 and DL dataset sample_id equal to 2.
+Our next task is to divide the sample into two new datasets. One dataset has only UA airline data and the other DL airline data, each one of them with 1.000 records. In other to make things easier, let's add a third column called "sample_id" for each dataset, for example, the UA dataset has a sample_id column equal to 1, and DL dataset sample_id equal to 2.
 
 ``` r
-# To add a third column in our dataset, we will use the function "mutate()"that adds new variables and preserves existing ones. 
+# To add a third column in our dataset, we will use the function "mutate()" that adds new variables and preserves existing ones. 
 > sample_DL <- na.omit(pop_data) %>%
 +   select(carrier, arr_delay) %>%
 +   filter(carrier == "DL") %>%
@@ -348,7 +359,7 @@ Our next task is to divide the sample into two new dataset. One dataset has only
 ```
 
 ### Binding UA and DL airline samples
-Ok, now we already have two samples for UA and DL airline with 1.000 records each. We need to bind these two samples into a unique dataset. Since both samples have the same variables (columns) we can easily bind them together by using "rbind()" function that will combine a vector, matrix or dataframe by rows.
+Ok, now we have two samples for UA and DL airline with 1.000 records each. We need to bind these two samples into a unique dataset. Since both samples have the same variables (columns) we can easily bind them together by using "rbind()" function that will combine a vector, matrix, or data frame by rows.
 
 ``` r
 > sample_all <- rbind(sample_DL, sample_UA)
@@ -367,13 +378,13 @@ Ok, now we already have two samples for UA and DL airline with 1.000 records eac
 [1] 2000    3
 ```
 
-Now we will calculate the confidence level (95%) for the DL sample. 
+Now we will calculate the confidence level (95%) for the DL sample.
 
-For this, we will use the equation: standard deviation of delay column divide by the square root of DL sample size. It is used to calculate the standard deviation of a sample mean distribution, which can only be used when we are trying to obtain the standard deviation of the calculate means from a sample of size n.
+For this, we will use the equation: standard deviation of delay column divide by the square root of DL sample size. It is used to calculate the standard deviation of a sample mean distribution, which can only be used when we are trying to obtain the standard deviation of the calculating means from a sample of size n.
 
-For example, let's assume we are trying to get 10.000 samples from any population with a sample size of 2. Then, we will calculate the mean for each sample (we will have 10.000 calculate means). The previous equation for standard deviation shows us that if the sample size is bigger enough, the sample mean standard deviation can be approximate by this mathematical relationship.
+For example, let's assume we are trying to get 10.000 samples from any population with a sample size of 2. Then, we will calculate the mean for each sample (we will have 10.000 calculate means). The previous equation for standard deviation shows us that if the sample size is bigger enough, the sample means standard deviation can be approximate by this mathematical relationship.
 
-With some inferential conditions, such as random and independent samples, we can really use this standard deviation to estimate the population standard deviation. Since this is only an estimate, it is called standard error (se). We can only estimate its value when the sample size is bigger than 30 (Central Limit Theorem) and the sample respect a interdependence condition, which implies in n <= 10% of population size.
+With some inferential conditions, such as random and independent samples, we can use this standard deviation to estimate the population standard deviation. Since this is only an estimate, it is called standard error (se). We can only estimate its value when the sample size is bigger than 30 (Central Limit Theorem) and the sample respect an interdependence condition, which implies in n <= 10% of population size.
 
 First of all, let's calculate the standard error:
 
@@ -382,13 +393,13 @@ First of all, let's calculate the standard error:
 > se_DL
 [1] 1.84913
 ```
-To calculate the critical values for each tail, we wil use the following equation:
+To calculate the critical values for each tail, we will use the following equation:
 
 <img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Statistical_Analysis_With_R:Hypothesis_Test/Images/Z-score_equation.png"
       alt = "Z-score_equation"
       style="width:400"/>
 
-In this case, for a interval confidence of 95%, the z-score is equal to 1,96. The standard error is equal to 1,84913. Now, we just need our mean sample and then, calculate the critical values for each tail. Remember, when we are dealing with upper tail, the z-score is positive, otherwise, it is negative.
+In this case, for interval confidence of 95%, the z-score is equal to 1,96. The standard error is equal to 1,84913. Now, we need our mean sample and to calculate the critical values for each tail. Remember, when we are dealing with the upper tail, the z-score is positive.
 
 ``` r
 > limit_lower_DL = mean(sample_DL$arr_delay) - 1.96 * se_DL
@@ -444,7 +455,7 @@ What if we could plot both confidence intervals?
 1         1 35.100
 2         2 33.088
 
-# Now, we will use "mutate()" function to create two new columns in the sample, "upper" and "lower". Each one with the lower and upper critical value of confidence interval.
+# Now, we will use the "mutate()" function to create two new columns in the sample, "upper" and "lower". Each one with the lower and upper critical value of confidence interval.
 > toPlot = mutate(toPlot, lower = ifelse(toPlot$sample_id == 1, ic_DL[1], ic_UA[1]))
 > toPlot = mutate(toPlot, upper = ifelse(toPlot$sample_id == 1, ic_DL[2], ic_UA[2]))
 > head(toPlot)
@@ -452,7 +463,7 @@ What if we could plot both confidence intervals?
 1         1 35.100 31.47571 38.72429
 2         2 33.088 32.33078 37.86922
 
-# We will use a point to represent mean value ("geom_point" and y = mean) and we will create an error bar with "geom_errorbar()" function, using critical values from confidence interval.
+# We will use a point to represent mean value ("geom_point" and y = mean) and then create an error bar with the "geom_errorbar()" function, using critical values from a confidence interval.
 > ggplot(toPlot, aes(x = sample_id, y = mean, colour = sample_id))+
 +   geom_point()+
 +   geom_errorbar(aes(ymin = lower, ymax = upper), width = .2)
@@ -461,24 +472,23 @@ What if we could plot both confidence intervals?
       alt = "Confidence_Interval_Plot"
       style="width:500"/>
 
-Most of the data resides in the same confidence interval in the two samples, implying that both samples came from the same population.
+Most of the data reside in the same confidence interval in the two samples, implying that both training and testing data came from the same population.
 
 Let's create a hypothesis test to check if DL airline flights delay more than UA airline flights.
-
-In this case, we have two hypothesis:
+In this case, we have two hypotheses:
 
 * H0 = There are no significant differences between DL and UA delays (delay mean differences equal to zero). Null Hypothesis.
 * H1 = Delta flights delay more than those in UA (delay mean differences greater than zero). Alternative Hypothesis.
 
-To test both hypothesis we can use the **T Test**.
+To test both Hypotheses,  we can use the T-Test.
 
-The **T Test** was developed by William Sealy Gosset in 1908. He used a pseudo name "Student" due to confidentiality matters, required by his employer (Guiness brewery) who considered the use of statistic in the quality maintenance a competitive advantage. The t test has several variations and can be used to compare two (and only two) means and its variations are related to the hypothesis to be tested.
+William Sealy Gosset developed the T-Test in 1908. He used a pseudo name "Student" due to confidentiality matters, required by his employer (Guinness brewery) for who the use of statistics in the quality maintenance was considered a competitive advantage. The t-test has several variations and can be used to compare two (and only two) means with its variations related to the hypotheses to be tested.
 
 <img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Statistical_Analysis_With_R:Hypothesis_Test/Images/William_Sealy_Gosset.jpg"
       alt = "William Sealy Gosset"
       style="width:600;height:300px;" />
 
-In R, we can use the function *t.test()* from *stats* package to test both hypothesis. If DL mean is greater than UA or if both means are equal.
+In R, we can use the function t.test() from the stats package to test both hypotheses.
 
 ``` r
 > t.test(sample_DL$arr_delay, sample_UA$arr_delay, alternative = "greater")
@@ -494,18 +504,18 @@ sample estimates:
 mean of x mean of y 
    35.100    33.088 
 ```
-The p value measures the probability of making a mistake in rejecting the Null Hypothesis (H0), it stems from the statistical distribution adopted. If the p value is less than the significance level, then it is correct to reject the Null Hypothesis. The p value is the probability that the test statistic assumes an extreme value regarding the observed value when H0 is True. We are working with a significance level of 0.05 (Confidence Level of 95%). Here are the rules to be considered in our Hypothesis Test:
+The p-value measures the probability of making a mistake in rejecting the Null Hypothesis (H0), where it stems from the statistical distribution adopted. If the p-value is less than the significance level, then it is correct to reject the Null Hypothesis. The p-value is the probability that the test statistic assumes an extreme value regarding the observed value when H0 is true. We are working with a significance level of 0.05 (Confidence Level of 95%). Here are the rules to be considered in our Hypothesis Test:
 
 * Low p value: strong empirical evidence against H0 (reject the null hypothesis)
-* High p value: little or none empirical evidence against H0
+* High p-value: little or none empirical evidence against H0
 
-In this case, we have failed to reject the null hypothesis, because the p-value is greater than the significance value. So, there is a high probability to not exist a significant difference between delays in our confidence interval.
+In this case, we have failed to reject the null hypothesis, because the p-value is greater than the significance value. So, there is a high probability of not exist a significant difference between delays in our confidence interval.
 
-Considering our data, there is no estatistical evidence that DL has more delays than UA airline.
+By considering our data, there is no statistical evidence that DL has more delays than UA airline.
 
 Let's do the same, but now with B6 (JetBlue Airways) and EV (ExpressJet Airlines).
 
-First of all, we will create a bar plot for all airlines in our data, in order to see how they are distributed in the dataset.
+First of all, we will create an airline bar plot to see how its distribution.
 
 ``` r
 > barr_carrier <- ggplot(flights,aes(x=as.factor(carrier), fill = as.factor(carrier))) + geom_bar()
@@ -515,7 +525,7 @@ First of all, we will create a bar plot for all airlines in our data, in order t
       alt = "All_Carriers"
       style="width:600;height:300px;" />
 
-If you want to use a non-graphical approach , the *table* function can work well. 
+If you want to use a non-graphical approach, the table function can work well.
 
 ``` r
 > check_cont <- table(flights$carrier)
@@ -536,7 +546,7 @@ If you want to use a non-graphical approach , the *table* function can work well
 ```
 EV and B6 observations represent 16% of all population data, which give us a reasonable to work with our samples.
 
-Now, we wil filter our dataset, with only EV and B6 airlines.
+Now, we will filter our dataset, with only EV and B6 airlines.
 
 ``` r
 > pop_data <- na.omit(flights) %>%
@@ -564,7 +574,7 @@ tibble [30,000 x 2] (S3: tbl_df/tbl/data.frame)
  - attr(*, "na.action")= 'omit' Named int [1:9430] 472 478 616 644 726 734 755 839 840 841 ...
   ..- attr(*, "names")= chr [1:9430] "472" "478" "616" "644" ...
 ```
-Note that, we cannot work with these samples because their size are greater than 10% of our population size. For example, B6 population size is 54.635, so, our sample size must be smaller than 5.463 in order to respect the Central Limit Theorem. We will filter our sampled data, splitting by carrier B6 and EV airline, after that we will randomly get 5000 records to our new sample.
+Note, we cannot work with these samples because their size is greater than 10% of our population size. For example, the B6 population size is 54.635, implying that the sample size must be smaller than 5.463 to respect the Central Limit Theorem. We will filter our sampled data, splitting by carrier B6 and EV airline, and then we will randomly get 5000 records to our new sample.
 
 ``` r
 > ev <- sample_n(filter(pop_data, carrier == "EV", arr_delay > 0), 5000)
@@ -623,9 +633,9 @@ Now, we will calculate the standard error for each company sample and the confid
 [1] 38.87043 41.59437
 ```
 
-We can see that the population mean for EV airline should be between the values 47 and 50 minutes delay. The sample mean is equal to 48 minutes. Now, for the B6 airline the population mean should be between the values 38 and 41 minutes delay and the sample mean is equal to 40 minutes. Note that we use a z-score equal to 1.96, equivalent to a confidence level of 95%.
+We can see that the population means for EV airlines should be between the values 47 and 50 minutes delay. The sample mean is equal to 48 minutes. Now, for the B6 airline, the population means should be between the values 38 and 41 minutes delay where the sample mean is equal to 40 minutes. Note that we use a z-score equal to 1.96, equivalent to a confidence level of 95%.
 
-Ok, now we just need to test our Hypothesis with the Student Test or T Test.
+Ok, now we need to test our Hypothesis with the Student Test or T-Test.
 
 ``` r
 > t.test(ev$arr_delay, b6$arr_delay, alternative = "greater")
@@ -642,8 +652,7 @@ mean of x mean of y
   48.7102   40.2324 
 ``` 
 
-We can reject the Null Hypothesis because the p-value is smaller than the significance level (equal to 0,05).In this case, there is a high probability to exist a significant difference between the sample means. 
-For our data, there is statistical evidence showing EV flights delays more than B6 flights.
+We can reject the Null Hypothesis because the p-value is smaller than the significance level (equal to 0,05).In this case, there is a high probability of a significant difference between the sample means to exist. For our data, there is statistical evidence showing EV flight delays more than B6 flights.
 
 It is possible to prove this with a graphical approach. I mean, let's first see our data when we filtered the columns "carrier" and "arr_delay", without dividing it in "B6" and "EV":
 
@@ -655,7 +664,7 @@ It is possible to prove this with a graphical approach. I mean, let's first see 
 > dim(pop_data2)
 [1] 133004      2
 ```
-Our data has 133.004 records, so we can get 70.000 records and plot a scatter plot for each airline company and the corresponding arrive delay variable. In this case, we don't want to make any inference over a certain population, we just want to have a quick view on how our arrive delay variable is distributed for each airline company. 
+Our data has 133.004 records, so we can get 70.000 records and plot a scatter plot for each airline company with the corresponding arrives delay variable. In this case, we don't want to make any inferences over a certain population. We want to have a quick view of our variable distribution.
 
 ``` r
 pop_data2 <- na.omit(flights) %>%
@@ -670,7 +679,8 @@ allin
 <img src="https://github.com/meloandrew/R_Language-Data_Analytics/blob/master/Statistical_Analysis_With_R:Hypothesis_Test/Images/check_all_carriers"
       alt = "check_all_carriers"
       style="width:600;height:300px;" />
-Our we could just have a scatter plot for the two airline companies sampled data B6 and EV.
+      
+Or we could just have a scatter plot for the two airline companies sampled data B6 and EV.
 
 ``` r
 > straight_point <- ggplot(data = pop_data, aes(x = as.factor(carrier), y = arr_delay,
@@ -681,7 +691,7 @@ Our we could just have a scatter plot for the two airline companies sampled data
       alt = "Straight Point"
       style="width:600;height:300px;" />
 
-When we see both charts, the B6 airline has more delayed arrival flights than EV airline. Let's confirm that by analyzing the population data for these 2 airline companies. What? Don't worry, we will only have 48.093 records, we can handle it. 
+When we see both charts, the B6 airline has more delayed arrival flights than EV airline. Let's confirm that by analyzing the population data for both airline companies. What? Don't worry, because we will have 48.093 records that we can handle it.
 
 ``` r
 > check_data <- ddply(pop_data, ~carrier,
@@ -696,9 +706,9 @@ When we see both charts, the B6 airline has more delayed arrival flights than EV
 > dim(pop_data)
 [1] 48093     2
 ```
-Fine, but why did we need to do all the Hypothesis data if we could make a decision by just looking for the population data? Well, imagine if you are handling billion of records, your computer or cluster can't treat all this data with a good performance. We are just doing this to show you that your Hypothesis test is really correct. The correct way is to sample our data, respecting the Central Limit Theorem of course, after that clean our data and then do the Hypothesis test. 
+Fine, but why did we need to do all the Hypothesis data if we could decide by just looking for the population data? Well, imagine if you are handling billions of records, your computer or cluster can't treat all this data with a good performance. We are just doing this to show you that your Hypothesis test is correct. The correct way is to sample our data, respecting the Central Limit Theorem, after that we clean our data, and then do the Hypothesis test.
 
-Our main goal with this little experiment is to show you that our data must be heard, to see how the variables communicate among themselves.
+Our main goal with this little experiment is to show you how important it is to understand the data and define the business problem.
 
 ## Author
 
