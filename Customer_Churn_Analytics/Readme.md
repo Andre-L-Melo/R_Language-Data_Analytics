@@ -24,8 +24,7 @@
 </div>
 
 ## Why R?
-For many, the R language is not considered a programming language, but a statistic package which has some functionalities and features for coding, such as loops, conditionals, variables, functions and others.
-It is open source and all its packages are maintaned by CRAN (https://cran.r-project.org).
+For many, the R language is not a programming language, but a statistic package that has some functionalities and features for coding, such as loops, conditionals, variables, functions, and others. It is open-source with all its features maintained by CRAN (https://cran.r-project.org). 
 
 The R language allows us to:
 
@@ -38,23 +37,19 @@ The R language allows us to:
 * Display Data
 
 ## Customer Churn Analysis Using R
-Our main goal is to work with Customer Churn Analysis. Churn is the same as turnover. When a client buys a product or hire a service, he/she probably will not keep it for all the eternity, so, in some moment the client will no longer be a client, that is what churn means.
-Thereby, we will predict the Customer Churn based in historical data collected.
-Who will be the next customer to turnover a product or service? After answering this question, we can define the best future strategy to be adopted.
+Our main goal is to work with Customer Churn Analysis. Churn is the same as turnover. When a client buys a product or hire a service, he/she probably will not keep it for all the eternity, so, at some point, the client will no longer be a client, that is what churn means. Thereby, we will predict Customer Churn based on historical data collected. Who will be the next customer to turnover a product or service? After answering this question, we can define the best future strategy to be adopted.
 
-The customer churn happens when a client or subscriber stop doing business with a company or service. It is also known as client loss or revocation rate. Knowing and predicting these revocation rates is particularly useful for the telecommunication industry, because most customers have several options to choose from within a geographic location. 
+The customer churn happens when a client or subscriber stops doing business with a company or service. It is also known as client loss or revocation rate. To know and predict these revocation rates is particularly useful for the telecommunication industry because most customers have several options to choose from within a geographic location.
 
-In this project we will predict de customer churn using a telecommunication dataset. We will use some of the many Machine Learning algorithms, such as logistic regression, decision tree and random forest. 
-
+In this project, we will predict de customer churn using a telecommunication dataset. We will use some of the many Machine Learning algorithms, such as logistic regression, decision tree, and random forest.
 The dataset is offered by IBM Sample Data Sets.
-
-Each dataset line represents a client and each column has all its features. 
+Each dataset line represents a client where each column has all its features.
 
 ### Understanding the Dataset
 
 First of all, we will need to load and clean our dataset.
 
-Our source will be a csv file, so, the function "read.csv" from R can be useful in this process.
+Our source will be a CSV file, so, the function "read.csv" from R can be useful in this process.
 
 Once the data is loaded, we will need to clean it before the Machine Learning process begin.
 
@@ -68,15 +63,15 @@ library(corrplot)
 library(ggplot2)
 library(gridExtra)
 library(ggthemes)
-library(caret) # Offers logistic regression and decision tree algorithms. You need to previously install the lattice package.
+library(caret) # Offers logistic regression and decision tree algorithms. You need to install the lattice package.
 library(MASS)
 library(randomForest) # Offers random forest algorithm
 library(party) # Offers report tools
 ```
 
-The package should be installed once, that is why we didn't include the command in the script.
+We expect that you have installed the package, so we didn't include the command in the script.
 
-Now, let's load our dataset
+Now, let's load our data:
 ```r
 # The raw data has 7043 lines (customers) and 21 columns (features).
 # The "churn" columns is our target variable.
@@ -102,7 +97,7 @@ head(churn,3)
 2     Mailed check          56.95      1889.50    No
 3     Mailed check          53.85       108.15   Yes
 
-# Let's check or dataset structure:
+# Let's check our dataset structure:
 str(churn)
 
 'data.frame':	7043 obs. of  21 variables:
@@ -136,9 +131,9 @@ So, we have 20 predictor variables and 1 target variable.
 
 ### Loading and Cleaning Data
 
-We have already undertood our dataset, now, we can clean and transform it.
+We have already understood our dataset to clean and transform it.
 
-This work does not follow a script. A dataset will never be like other, because a problem will never be the same. So, we do not have a "cake recipe" to be follow.
+This work does not follow a script. A dataset will never be like other because a problem will never be the same. So, we do not have a "cake recipe" for it.
 
 Of course, we still have a macro structure to be considered:
 
@@ -149,12 +144,14 @@ Of course, we still have a macro structure to be considered:
 * Predictive Modeling
 * Model Evaluation
 
-These steps will always exist, but inside of each one of them there are multiple techniques, process, procedures and tools that can be used according to the problem and the dataset.
+All of these steps will always exist.
+
+Inside of each one of them, there are multiple techniques, processes, procedures, tools, and analyses varying by the project.
 
 **1º Change:** Our first task is to remove any NA value or Missing Values in our dataset.
 
 ```r
-# First, we will use the sapply() function, one of the many from the apply family. The apply family provides functions that replace the use of loops, but in a more efficient way, for example, the sapply function is great when we are trying to work with vectors and lists. In this case we are going to apply a function to each element of list, this function will sum all NA values for each column. This will be useful to know where the Missing Values are.
+# First, we will use the sapply() function, one of the many from the apply family. The apply family provides functions that replace the use of loops, but more efficiently, for example, the sapply function is great when we are trying to work with vectors and lists. In this case, we are going to apply a function to each element of the list, this function will sum all NA values for each column. This will be useful to know where the Missing Values are.
 sapply(churn,function(x) sum (is.na(x)))
 
       customerID           gender    SeniorCitizen          Partner 
@@ -199,9 +196,10 @@ If we look to our variables, we will see that some changes are still needed.
 * StreamingTV
 * StreamingMovies
 
-All the six columns are align in sequence, going from index 10 to index 15. 
+All the six columns are aligned in sequence, going from index 10 to index 15.
 
 We can create a loop that will replace the values in each columns so as we desire. First, let's create a vector which will store a range of values going from 10 to 15.
+
 ```r
 cols_recode1 <- c(10:15)
 ```
@@ -261,7 +259,7 @@ head(churn, 3)
 2     Mailed check          56.95      1889.50    No
 3     Mailed check          53.85       108.15   Yes
 ```
-**4º Change:** The "tenure" column is related to the lenght period the customer had the service. The minimum lenght period is 1 month and the maximum is 72 months. Well, we can split it into 5 different groups, like.
+**4º Change:** The "tenure" column is related to the long period the customer had the service. The minimum length period is 1 month and the maximum is 72 months. Well, we can split it into 5 different groups:
 * 0 - 12 
 * 12 - 24
 * 24 - 48
@@ -277,6 +275,10 @@ min(churn$tenure); max(churn$tenure)
 ```
 
 Great, the minimum value is 1 month and the maximum value is 72 month.
+
+Now, we can start our work to classify our data.
+
+Great, the minimum value is 1 month and the maximum value is 72 months.
 
 Now, we can start our work to classify our data.
 
@@ -333,7 +335,7 @@ head(churn, 2)
 
 ### Exploratory Analysis and Feature Selection
 
-The Exploratory Analysis can be done before cleaning the data, in order to detect problems in our dataset, but it is not mandatory.
+The Exploratory Analysis can be done before cleaning the data, to detect problems in our dataset, but it is not mandatory.
 
 During this phase, we search for relations between the variables.
 
@@ -359,13 +361,17 @@ numeric.var
 
 We can see that the columns "MonthlyCharges" and "TotalCharges" are numerical variables.
 
-Our next goal is to look for some correlation between these two variables. Correlation is the scale version of covariance, assuming values between -1 and 1, it is used to measure relation between numerical variables. By its values, we can make the following assumptions:
+Our next goal is to look for some correlation between these two variables. Correlation is the scale version of covariance, assuming values between -1 and 1. 
+
+It represents the measure of the relation between numerical variables. By its uses, we can make the following assumptions:
 
 * Equal to 1: Perfect correlation between the variables, so they are directly proportional and linearly dependent.
 * Equal to -1: Perfect correlation between the variables, but they are inversely proportional and linearly dependent.
 * Equal to 0: There is no correlation at all between the variables.
 
-Remember, correlation is different from causality, one variable does not necessarly change another variable.
+Remember, correlation is different from causality.
+
+One variable does not necessarily change another variable.
 
 In R, we can use a correlation matrix, generated by the function cor().
 
@@ -377,7 +383,7 @@ corr.matrix
 MonthlyCharges      1.0000000    0.6510648
 TotalCharges        0.6510648    1.0000000
 ```
-Note that we have a Correlation Matrix with a coefficient equal to 0.6510648. This indicates a strong positive correlation between both variables. 
+Note that we have a Correlation Matrix with a coefficient equal to 0.6510648. This indicates a strong positive correlation between both variables.
 
 We can also plot the Correlation Matrix by using the function "corrplot()":
 
@@ -395,9 +401,9 @@ churn$TotalCharges <- NULL
 ```
 Ok, now we can check how our categorical variables are distributed.
 
-Why can't we use a graphical approach? Actually, we can!
+Why can't we use a graphical approach? We can!
 
-We will use the package *ggplot2*. Four categorical variables are going to be represented in a bar chart. These are: Gender, SeniorCitizen, Partner and Dependents. In this case, to create the bar chart, we will use a percentual value for coordinate "y" given by dividing a specific category total by the total amount of observed values.
+We will use the package ggplot2. Four categorical variables are going to be represented in a bar chart. These are: Gender, SeniorCitizen, Partner and Dependents. In this case, to create the bar chart, we will use a percentual value for coordinate "y" given by dividing a specific category total by the total amount of observed values.
 
 ``` r
 # GENDER:
@@ -522,21 +528,21 @@ grid.arrange(p13, p14, p15, p16, p17, ncol=2)
       alt = "Bar Chart 4"
       style="width:600px;height:300px;"/>
 
-Although we have seen some variables with bad distribution, like for example, SeniorCitizen and PhoneService, we will keep them in our dataset. The rest of the variables presented a reasonably wide distribution.
+Although we have seen some variables with poor distribution, as senior citizens and phone service, we will keep them in our dataset. The rest of the variables presented a reasonably wide distribution.
 
 ### Predictive Model With Logistic Regression
 
-We have already done a cleaning process in our dataset and a small exploratory analysis, therefore, we are ready to create our machine learning model.
+We have already done a cleaning process in our dataset and a small exploratory analysis, allowing us to create our machine learning model.
 
-We can, when working with predictive models, use one of over 60 machine learning algorithms. Ok, but which algorithm will we use? It will depend on the business problem. If the problem is about classification, then we will use algorithms for classification, such as random forest and decision tree. If the problem is about regression, then we can use neural networks, linear regression, among others.
+We can, when working with predictive models, use one of over 60 machine learning algorithms. What algorithm will we use? It will depend on the business problem. If the problem is about classification, then we will use algorithms for classification problems, such as random forest and decision trees. If the problem is about regression, then we can use neural networks, linear regression, among others.
 
-You can use more than one algoritm in your project. We could train multiples algorithms, analyze each one performance and then, choose the algorithm that had better accuracy. 
+You can use more than one algorithm in your project. We could train multiples algorithms, analyze each one performance, to choose the algorithm that had better accuracy.
 
 First, we will use the logistic regression model, perfect for classification problems.
 
-Let's split our data into two different groups: train_data and test_data. The train_data will be used to train our model and the test_data will validate its accuracy. To do that, the proportion will be 70% of original data for train_data and 30% for test_data, of course we will do a random split, this is important in order to avoid biased models.
+Let's split our data into two different groups: train_data and test_data. The train_data trains our model while the test_data will validate its accuracy. The proportion will be 70% of the original data for train_data and 30% for test_data with a random split. It is crucial to avoid biased models.
 
-In R, we have the function *createDataPartition* from **caret package**, which is one of the best package to work with machine learning. The function "set.seed()" is also important so you can obtain the same results as mine. 
+In R, we have the function createDataPartition from caret package, which is one of the best package to work with machine learning. The function "set.seed()" is also important so you can obtain the same results as mine. 
 
 ``` r
 set.seed(2017)
@@ -553,9 +559,9 @@ dim(testing)
 [1] 4924   19
 [1] 2108   19
 ``` 
-Ok, now we have two different datasets.
+We have two different datasets.
 
-The logistic regression algorithm can be found in the function *glm* which is used to adept widespread linear models. It expects as a parameter a target variable expression (in this case, the Churn variable relating with the others predictor variables), the distribution error (considering a binomial parameter with logistic regression) and the training dataset.
+The glm function has a logistic regression algorithm. This algorithm serves to fit the widespread linear model. It expects as a parameter a target variable expression (in this case, the Churn variable relating with the other predictor variables), the distribution error (considering a binomial parameter with logistic regression), and the training dataset.
 
 ``` r
 LogModel <- glm(Churn ~., family = binomial(link="logit"), data = training)
@@ -606,27 +612,27 @@ AIC: 4168.3
 
 Number of Fisher Scoring iterations: 6
 ```
-Note that, the deviance residuals represent the square root of the contribution that each data point has to the overall Residual Deviance. Thus, deviance residuals are analogous to the residuals in ordinary least squares. When we square these residuals, we get the Sums of Squares used to asses how well a model fits the data. 
+Note the deviance residuals represent the square root of the contribution that each data point has to the overall Residual Deviance. Thus, deviance residuals are analogous to the residuals in ordinary least squares. When we square these residuals, we get the Sums of Squares used to assess how well a model fits the data.
 
-For Logistic Regression the equation for deviance residuals is based on the distances between the data and the best fitting line. We usually use them to identify outliers.
+For a Logistic Regression Model, the equation for deviance residuals calculates the distances between the data and the best fitting line. We usually use them to identify outliers.
 
-Imagine a Logistic Regression as a function. The point where this function intercept y is called "Intercept", in this case is equal to -0.809621. Then when have the Standard Error, equal to 0.9828, the z - value (estimated intercept divided by the standard error) equal to -0.824 and the p-value (the area under a standard normal curve that is further than -0.824 standard deviations away from 0. ).
+Imagine a Logistic Regression as a function. The point where this function intercept y is called "Intercept" in this case, is equal to -0.809621. Then the Standard Error will be  0.9828, the z - value (estimated intercept divided by the standard error) equal to -0.824, and the p-value (the area under a standard normal curve that is further than -0.824 standard deviations away from 0. ).
 
-The second coefficient is the slope, it means that for every change in the customer gender, the log(odds of churn) decreases by 0.027853.
+The second coefficient is the slope, where for every change in the customer gender, the log(odds of churn) decreases by 0.027853.
 
-So, we considered that, these variables that present a z-value greater than 2 (or -2), normaly will have a small p-value, and so, are significant to our target variable.
+So, we considered that these variables that present a z-value greater than 2 (or -2), will have a small p-value, and so, are significant to our target variable.
 
 ### Variance Analysis with ANOVA
 
-An algorithm is nothing more than a step sequence to be executed towards a problem. When you executed a Machine Learning algorithm, what you obtain is a mathematical equation, that needs to be completed with its coefficients. To obtain this complete mathematical equation, we need to feed the algorithm with data, in other words, train the algorithm. During the training, the algorithm will find the best coefficients to completed its equation.
+An algorithm is nothing more than a step sequence to be executed towards a problem. When you train a Machine Learning algorithm, what you obtain is a mathematical equation, that needs its coefficients. To obtain this complete mathematical equation, we need to feed the algorithm with data, in other words, train the algorithm. During the training, the algorithm will find the best coefficients to completed its equation.
 
-So, in the previous step we have trained an algorithm with all features from the original data (after the cleaning process, of course). 
+So, in the previous step, we have trained an algorithm with all features from the original data (after the cleaning process, of course).
 
 But, the question is, how do we know which are the best variables?
 
 Well, to answer that question we can do some Variance Analysis, where it is possible to check which are the most important variables for our Machine Learning Model.
 
-R has a function called *ANOVA* which is used to compute variance analysis for one or more predictive models.
+R has a function called ANOVA which is used to compute variance analysis for one or more predictive models.
 
 ``` r
 anova(LogModel, test="Chisq")
@@ -664,8 +670,7 @@ tenure_group      4   144.44      4898     4116.3 < 2.2e-16 ***
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ```
 
-Analyzing the variance, we can see that the Deviance Residual decreases as we add more variables, one at a time. For example, when we add InternetService, Contract and tenure_group, the Deviance Residual decreases drastically, they also have a small p-value.
-The other variables, such as PaymentMethod and Dependents, improve the model in a lower rate, although their p-value is small.
+Analyzing the variance, we can see that the Deviance Residual decreases as we add more variables, one at a time. For example, when we add InternetService, Contract and tenure_group, the Deviance Residual decreases drastically, they also have a small p-value. The other variables, such as PaymentMethod and Dependents, improve the model in a lower rate, although their p-value is small.
 
 Ok, now let's check our model accuracy. First of all, let's see its precision level:
 
@@ -709,13 +714,15 @@ print(paste('Logistic Regression Accuracy',1-misClasificError))
 ```
 By using this model we have obtained an accuracy level of 80%, which means that, for every 100 records, our model gets 80 right. Of course, the accuracy level depends on the project, it is a metric that must be defined on the business case, before starting the project.
 
-Let's print the Confusion Matrix, that basicaly shows how our model did the predictions. It creates a relation between successes and mistakes. Have you ever heard of False Positive and False Negative? Well, I believe the image below will help you understand:
+By using this model we have obtained an accuracy level of 80%, which means that, for every 100 records, our model gets 80 right. Of course, the accuracy level depends on the project, it is a metric that must be defined in the business case, before starting the project.
+
+Let's print the Confusion Matrix, which shows how our model did the predictions. It creates a relation between successes and mistakes. Have you ever heard of False Positive and False Negative? Well, I believe the image below will help you understand:
 
  <img src="https://miro.medium.com/max/675/0*3VJ0eMdSaifXrCeP.png"
       alt = "Confusion Matrix"
       style="width:300;height:250px;"/>
 
-So, what we will get is the relation of scores and mistakes did by our model.
+So, what we will get is the relation of scores and mistakes committed by our model.
 
 ``` r
 library(gmodels)
@@ -745,10 +752,9 @@ Column Total |      1548 |       560 |      2108 |
              |     0.734 |     0.266 |           | 
 -------------|-----------|-----------|-----------|
 ```
-Okay, we were not too bad, even though we still had more thing to do in Exploratory Analysis phase. 
-Maybe we will give it another try later.
+We were not too bad, even though we still had more things to do in the Exploratory Analysis phase. Maybe we will give it another try later.
 
-Hey, we still have one more thing to do with this model, check the Odds Ratio. The Odds Ratio it is the likelihood of an event happening. 
+Hey, we still have one more thing to do with this model, check the Odds Ratio. The Odds Ratio is the likelihood of an event happening.
 
 ``` r
 exp(cbind(OR=coef(LogModel), confint(LogModel)))
@@ -781,13 +787,13 @@ tenure_group12-24 Month               2.5943566 1.75405640  3.8686909
 tenure_group24-48 Month               1.8242075 1.27364367  2.6363913
 tenure_group48-60 Month               1.5651696 1.06647470  2.3074728
 ```
-Note that, some of these variables presented OR greater than 1, which means that the comparison outcome is more likely than the reference outcome as the predictor increases. For example, if the MonthlyCharges increases its values, lower is the customer churn probability, in other words, if the client pays more for the service greater are her/his odds to keep the service. 
+Note, some of these variables presented OR bigger than 1, which means that the comparison outcome is more likely than the reference outcome as the predictor increases. For example, if the MonthlyCharges increases its values, the lower is the customer churn probability, so if the client pays more for the service, the greater are her/his odds to keep the service.
 
 ### Predictive Model with Decision Tree
 
-This is an interesting algorithm, because we use it everyday in our lives. When you wake up, you decide to either take a bus or a subway to work, in this moment you are using a decision tree to make this choice. If by any chance you go to work by car, you will arrive in 50 minutes, if you take the subway you will arrive in 30 minutes. Each decision you make leaves to another.
+The Decision Tree is a curious algorithm because we use it every day in our lives. When you wake up, you decide to either take a bus or a subway to work, in this moment you are using a decision tree to make this choice. If by any chance you go to work by car, you will arrive in 50 minutes, if you take the subway you will arrive in 30 minutes. Each decision you make leaves to another.
 
-We need to define the decision tree, that is why we will use the "ctree()" function. It creates conditional inference decision trees. In order to train our model, we will use only three predictors:
+We need to define the decision tree, it is why we will use the "ctree()" function. It creates conditional inference decision trees. To train our model, we will use only three predictors:
 
 * Contract
 * tenure_group
@@ -806,7 +812,7 @@ plot(tree, type='simple')
 Interpreting the model:
 
 * The contract is the most important variable to predict client turnover.
-* If a client has a one or two years contract, it doesn't matter if she/he has or hasn't a PaperlessBilling, he/she is less likely to cancel subscription.
+* If a client has a one or two years contract, it doesn't matter if she/he has or hasn't a PaperlessBilling, he/she is less likely to cancel the subscription.
 * On the other hand, if a client has a month-to-month contract, and has a 0-12 month tenure contract, then the PaperlessBilling will influence in a turnover decision.
 
 Nice, let's check our model accuracy:
@@ -853,7 +859,7 @@ The accuracy level for this model is lower than for the logistic regression mode
 
 ### Predictive Model with Random Forest
 
-The Random Forest algorithm is a set of Decison Trees. Basically, we have various decison trees within the same algorithm, working side-by-side, in the end, a mean is taken from all the decison tree results in order to obtain the best prediction. We can say that the trees protect each other from their individual erros, so we have a bunch of uncorrelated models working together in the same portfolio. 
+The Random Forest algorithm is a set of Decision Trees. We have various decision trees within the same algorithm, working side-by-side, in the end, a mean is taken from all the decision tree results to obtain the best prediction. We can say that the trees protect each other from their errors, so we have a bunch of uncorrelated models working together in the same portfolio.
 
 
 ``` r
@@ -890,7 +896,7 @@ plot(rfModel)
       alt = "Random_Forest"
       style="width:600;height:300px;"/>
 
-Note that, the error rate is high when the model is starting to learn, but after a few "classes" the error stabilizes until it reaches a plateau shape, at this point we can't do anything to improve the error rate.
+Note, the error rate is high when the model is starting to learn, but after a few "classes" the error stabilizes until it reaches a plateau shape, at this point, we can't do anything to improve the error rate.
 
 Let's predict the testing values with our model.
 
@@ -925,13 +931,12 @@ Column Total |      1548 |       560 |      2108 |
 -------------|-----------|-----------|-----------|
 ```
 
-There is one more important resource: **varImpPlot**
+There is one more important resource: varImpPlot
 
-With this function we can check how important a variable is. Note that, we have used all the model variables, in other words, everything that is not our target variable. Again, will all these variables impact in our model decision?
+With this function, we can check how important a variable is. We have used all the model variables, in other words, everything that is not our target variable. Again, will all these variables impact in our model decision?
+We can use ANOVA or random forest models to answer this question.
 
-We can use ANOVA or randomforest model to answer this question.
-
-This specific function *varImpPlot* will look to our model and search for the most important variables in prediction calculations.
+This specific function varImpPlot will look to our model and search for the most important variables in prediction calculations.
 
 ``` r
 varImpPlot(rfModel, sort=T, n.var = 10, main = 'Top 10 Feature Importance')
@@ -940,17 +945,17 @@ varImpPlot(rfModel, sort=T, n.var = 10, main = 'Top 10 Feature Importance')
       alt = "Random Importance"
       style="width:600;height:300px;"/>
 
-When we look to the chart, it is noticeable that MonthlyCharges, ternure_group and Contract are the most important variables for this model. 
+When we look at the chart, it is noticeable that MonthlyCharges, ternure_group, and Contract are the most important variables for this model.
 
 ## Conclusion
 
-After all this, what model would you choose as a final version? 
+After all this, what model would you choose as a final version?
 
-I believe the logistic regression had shown a better accuracy than the other two algorithms. 
+I believe the logistic regression had shown better accuracy than the other two algorithms.
 
-But, we need to have in mind that this is only the iceberg tip, we are only scrathing the surface, there are inumerous thing we can do to improve our model accuracy, such as, check data normalization, adjust data scale or remove some unimportant variables, even check for outliers in our numerical variables is something worth doing.
+But, we need to have in mind that this is only the iceberg tip, we are only scratching the surface, there are numerous thing we can do to improve our model accuracy, such as, check data normalization, adjust data scale or remove some unimportant variables, even check for outliers in our numerical variables is something worth doing.
 
-When we create a Machine Learning Project, we are actually working with a workflow of tasks, it can be continuous or a cycle, you create a model, train it, evaluate it, come back to do more exploratory analysis and transformations, then repeat it all again. It all dependes on the problem you are trying to solve. 
+When we create a Machine Learning Project, we are working with a workflow of tasks, it can be continuous or a cycle, you create a model, train it, evaluate it, come back to do more exploratory analysis and transformations, then repeat it all. It all depends on the problem you are trying to solve.
 
 So, the first question you should do is:
 
