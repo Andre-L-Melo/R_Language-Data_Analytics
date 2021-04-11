@@ -9,8 +9,7 @@
 </div>
 
 <div align = "center> 
-  <a href = "https://rstudio.com/" 
-  target = "_blank" rel = "noopener">
+  <a href = "https://www.rstudio.com/" target = "_blank" rel = "noopener">
     <img src = "https://img.shields.io/badge/rstudio-v1.3.1-blue"/>  
   <a href="https://cran.r-project.org/web/packages/randomForest/index.html" target="_blank" rel="noopener">
     <img src="https://img.shields.io/badge/rpart-v4.1-blueviolet"/>
@@ -20,7 +19,7 @@
     <img src="https://img.shields.io/badge/e1071-v1.7-blueviolet"/>
   <a href="https://cran.r-project.org/web/packages/gmodels/index.html" target="_blank" rel="noopener">
     <img src="https://img.shields.io/badge/gmodels-v2.18.1-blueviolet"/>
-  <a href="https://www.rdocumentation.org/packages/caret/versions/6.0-86" target="_blank" rel="noopener">
+  <a href="https://cran.r-project.org/web/packages/caret/index.html" target="_blank" rel="noopener">
     <img src="https://img.shields.io/badge/caret-v6.0--86-blueviolet"/>                                                                      
   </a> 
 </div>
